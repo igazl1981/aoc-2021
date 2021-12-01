@@ -1,19 +1,17 @@
 fun main() {
     fun part1(input: List<Int>): Int {
 
-        return input
-            .dropLast(1)
-            .filterIndexed { index, measurement -> measurement < input[index + 1] }
-            .count()
+        return return input
+            .windowed(2, 1)
+            .filter { it[0] < it[1] }.size
     }
 
     fun part2(input: List<Int>): Int {
 
         return input
-            .dropLast(3)
-            .mapIndexed { index, _ -> input.subList(index, index + 3).sum() }
-            .filterIndexed { index, measurement -> measurement < input.subList(index + 1, index + 4).sum() }
-            .count()
+            .windowed(3, 1) { window -> window.sum() }
+            .windowed(2, 1)
+            .filter { it[0] < it[1] }.size
     }
 
     // test if implementation meets criteria from the description, like:
