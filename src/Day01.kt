@@ -1,17 +1,19 @@
 fun main() {
     fun part1(input: List<Int>): Int {
-        
+
         return input
-            .filterIndexed { index, measurement -> index > 0 && measurement > input[index-1] }
+            .dropLast(1)
+            .filterIndexed { index, measurement -> measurement < input[index + 1] }
             .count()
     }
 
     fun part2(input: List<Int>): Int {
-        val windows = input
-            .take(input.size - 2)
-            .mapIndexed { index, current -> current + input[index + 1] + input[index + 2] }
 
-        return part1(windows)
+        return input
+            .dropLast(3)
+            .mapIndexed { index, _ -> input.subList(index, index + 3).sum() }
+            .filterIndexed { index, measurement -> measurement < input.subList(index + 1, index + 4).sum() }
+            .count()
     }
 
     // test if implementation meets criteria from the description, like:
