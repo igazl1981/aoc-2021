@@ -7,6 +7,12 @@ import java.security.MessageDigest
  */
 fun readInput(name: String) = File("src", "$name.txt").readLines()
 
+fun readInputForDay2(name: String) = readInput(name)
+    .map { line ->
+        line.split(" ")
+            .let { Pair(Direction.fromString(it[0]), it[1].toInt()) }
+    }
+
 /**
  * Converts string to md5 hash.
  */
