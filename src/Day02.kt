@@ -1,49 +1,29 @@
 fun main() {
     fun part1(input: List<Pair<Direction, Int>>): Int {
-        val initialMap = mutableMapOf(Position.HORIZONTAL to 0, Position.VERTICAL to 0)
-        val fold = input
-            .fold(initialMap) { acc, pair ->
+        return input
+            .fold(Position()) { acc, pair ->
                 when (pair.first) {
-                    Direction.FORWARD -> {
-                        acc[Position.HORIZONTAL] = acc[Position.HORIZONTAL]!! + pair.second
-                        acc
-                    }
-                    Direction.UP -> {
-                        acc[Position.VERTICAL] = acc[Position.VERTICAL]!! - pair.second
-                        acc
-                    }
-                    Direction.DOWN -> {
-                        acc[Position.VERTICAL] = acc[Position.VERTICAL]!! + pair.second
-                        acc
-                    }
+                    Direction.FORWARD -> acc.copy(horizontal = acc.horizontal + pair.second)
+                    Direction.UP -> acc.copy(vertical = acc.vertical - pair.second)
+                    Direction.DOWN -> acc.copy(vertical = acc.vertical + pair.second)
                 }
             }
-
-        return fold[Position.HORIZONTAL]!! * fold[Position.VERTICAL]!!
+            .let { finalPosition -> finalPosition.horizontal * finalPosition.vertical }
     }
 
     fun part2(input: List<Pair<Direction, Int>>): Int {
-
-        val initialMap = mutableMapOf(Position.HORIZONTAL to 0, Position.VERTICAL to 0, Position.AIM to 0)
-        val fold = input
-            .fold(initialMap) { acc, pair ->
+        return input
+            .fold(Position()) { acc, pair ->
                 when (pair.first) {
-                    Direction.FORWARD -> {
-                        acc[Position.HORIZONTAL] = acc[Position.HORIZONTAL]!! + pair.second
-                        acc[Position.VERTICAL] = acc[Position.VERTICAL]!! + (acc[Position.AIM]!! * pair.second)
-                        acc
-                    }
-                    Direction.UP -> {
-                        acc[Position.AIM] = acc[Position.AIM]!! - pair.second
-                        acc
-                    }
-                    Direction.DOWN -> {
-                        acc[Position.AIM] = acc[Position.AIM]!! + pair.second
-                        acc
-                    }
+                    Direction.FORWARD -> acc.copy(
+                            horizontal = acc.horizontal + pair.second,
+                            vertical = acc.vertical + (acc.aim * pair.second)
+                        )
+                    Direction.UP -> acc.copy(aim = acc.aim - pair.second)
+                    Direction.DOWN -> acc.copy(aim = acc.aim + pair.second)
                 }
             }
-        return fold[Position.HORIZONTAL]!! * fold[Position.VERTICAL]!!
+            .let { finalPosition -> finalPosition.horizontal * finalPosition.vertical }
     }
 
     // test if implementation meets criteria from the description, like:
@@ -68,6 +48,12 @@ enum class Direction {
     }
 }
 
-enum class Position {
-    HORIZONTAL, VERTICAL, AIM
-}
+data class Position(
+    val horizontal: Int = 0,
+    val vertical: Int = 0,
+    val aim: Int = 0
+)
+
+//enum class Position {
+//    HORIZONTAL, VERTICAL, AIM
+//}
