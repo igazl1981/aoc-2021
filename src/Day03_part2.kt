@@ -20,5 +20,6 @@ fun main() {
 
     val part2FinalResult = part2(input)
     println("Part2: $part2FinalResult")
+    check(part2FinalResult == 3414905) { "Part 2 final failed: $part2FinalResult" }
 }
 
