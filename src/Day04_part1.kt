@@ -12,7 +12,8 @@ fun main() {
                     .also { boardsWithMarkedNumbers ->
                         boardsWithMarkedNumbers
                             .find { board -> board.hasBingoLineOrColumn() }
-                            ?.also { boardWithBingo -> result = currentNumber * boardWithBingo.sumOfRemainingNumbers() }
+                            ?.also { boardWithBingo ->
+                                result = currentNumber * boardWithBingo.sumOfRemainingNumbers() }
                     }
                 acc
             }
@@ -56,7 +57,7 @@ data class Matrix(val rows: List<List<Int>>) {
  * The input has to be lines with numbers devided by space(s)
  * Every matrix representation is separated by an empty line
  */
-private fun List<String>.get5by5Matrices() = this.windowed(5, 6)
+internal fun List<String>.get5by5Matrices() = this.windowed(5, 6)
     .map { boardLines ->
         val rows = boardLines
             .map { boardLine ->
