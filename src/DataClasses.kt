@@ -1,5 +1,3 @@
-import kotlin.math.abs
-
 data class Matrix(val rows: List<List<Int>>) {
 
     fun hasBingoLineOrColumn() = hasBingoLine() || hasBingoColumn()
@@ -19,20 +17,6 @@ data class Matrix(val rows: List<List<Int>>) {
     private fun getRowsWithoutChosenNumber(chosenNumber: Int) = rows.map { line -> line.map { if (it == chosenNumber) -1 else it } }
 }
 
-
-data class Point(val x: Int, val y: Int) : Comparable<Point> {
-    override fun compareTo(other: Point): Int {
-        return if (this.x == other.x && this.y == other.y)
-            0
-        else if (this.x > other.x || this.y > other.y)
-            1
-        else
-            -1
-    }
-
-    operator fun rangeTo(that: Point) = PointRange(this, that)
-}
-
 data class VentLine(val startPoint: Point, val endPoint: Point) {
 
     fun isVertical() = startPoint.x == endPoint.x
@@ -41,24 +25,25 @@ data class VentLine(val startPoint: Point, val endPoint: Point) {
 
     fun getCoveredPoints(): MutableList<Point> {
         val points = mutableListOf<Point>()
-//        var currentPoint: Point
-//        val directionX = if (startPoint.x > endPoint.x) -1 else if (startPoint.x < endPoint.x) 1 else 0
-//        val directionY = if (startPoint.y > endPoint.y) -1 else if (startPoint.y < endPoint.y) 1 else 0
-//        var distanceX = abs(startPoint.x - endPoint.x)
-//        var distanceY = abs(startPoint.y - endPoint.y)
-//
-//        do {
-//            val newX = startPoint.x + (distanceX * directionX)
-//            val newY = startPoint.y + (distanceY * directionY)
-//            distanceX--
-//            distanceY--
-//            currentPoint = Point(newX, newY)
-//            points.add(currentPoint)
-//        } while (currentPoint != startPoint)
 
-        for (point in startPoint..endPoint) {
-            points.add(point)
-        }
+
+        val directionX = if (startPoint.x > endPoint.x) -1 else if (startPoint.x < endPoint.x) 1 else 0
+        val directionY = if (startPoint.y > endPoint.y) -1 else if (startPoint.y < endPoint.y) 1 else 0
+        var x = 0
+        var y = 0
+
+        do {
+            val newX = startPoint.x + (x * directionX)
+            val newY = startPoint.y + (x * directionY)
+            x++
+            y++
+            val current = Point(newX, newY)
+            points.add(current)
+        } while (current != endPoint)
+
+//        for (point in startPoint..endPoint) {
+//            points.add(point)
+//        }
         return points
     }
 
@@ -71,6 +56,14 @@ data class VentLine(val startPoint: Point, val endPoint: Point) {
             return VentLine(points[0], points[1])
         }
     }
+}
+
+data class Point(val x: Int, val y: Int) : Comparable<Point> {
+    override fun compareTo(other: Point): Int {
+        return 0
+    }
+
+    operator fun rangeTo(that: Point) = PointRange(this, that)
 }
 
 class PointIterator(startPoint: Point, private val endPoint: Point) : Iterator<Point> {

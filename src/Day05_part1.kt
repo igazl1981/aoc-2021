@@ -6,14 +6,15 @@ fun main() {
             .filter { ventLine -> ventLine.isVertical() || ventLine.isHorizontal() }
             .flatMap { ventLine -> ventLine.getCoveredPoints() }
 
-        val coveredPoints = allThePoints
+        val groupingBy = allThePoints
             .groupingBy { it }
+        val coveredPoints = groupingBy
             .eachCount()
 
         val count = coveredPoints
             .count { it.value >= 2 }
 
-
+//92462 (compareTo)
         return count
     }
 
@@ -26,5 +27,5 @@ fun main() {
     val inputPart1 = readInput("Day05")
     val part1FinalResult = part1(inputPart1)
     println("Part1: $part1FinalResult")
-    check(part1FinalResult == 89001) { "Part1 Final failed: $part1FinalResult" }
+    check(part1FinalResult == 4993) { "Part1 Final failed: $part1FinalResult" }
 }
