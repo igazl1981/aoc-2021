@@ -33,25 +33,6 @@ fun main() {
     check(part1FinalResult == 89001) { "Part1 Final failed: $part1FinalResult" }
 }
 
-data class Matrix(val rows: List<List<Int>>) {
-
-    fun hasBingoLineOrColumn() = hasBingoLine() || hasBingoColumn()
-
-    private fun hasBingoLine() = rows.firstOrNull { line -> line.none { numberInRow -> numberInRow >= 0 } } != null
-
-    private fun hasBingoColumn() = transpose().firstOrNull { line -> line.none { numberInRow -> numberInRow >= 0 } } != null
-
-    fun getMatrixWithoutChosenNumber(chosenNumber: Int) = Matrix(getRowsWithoutChosenNumber(chosenNumber))
-
-    fun sumOfRemainingNumbers(): Int {
-        return rows.sumOf { line -> line.filter { it >= 0 }.sum() }
-    }
-
-    fun transpose() = rows[0].mapIndexed { column, _ -> rows.mapIndexed { row, _ -> rows[row][column] } }
-
-    private fun getRowsWithoutChosenNumber(chosenNumber: Int) = rows.map { line -> line.map { if (it == chosenNumber) -1 else it } }
-}
-
 /**
  * Returns 5x5 Matrices.
  * The input has to be lines with numbers devided by space(s)
