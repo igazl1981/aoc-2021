@@ -22,12 +22,7 @@ data class Matrix(val rows: List<List<Int>>) {
 
 data class Point(val x: Int, val y: Int) : Comparable<Point> {
     override fun compareTo(other: Point): Int {
-        return if (this.x == other.x && this.y == other.y)
-            0
-        else if (this.x > other.x || this.y > other.y)
-            1
-        else
-            -1
+        return 0
     }
 
     operator fun rangeTo(that: Point) = PointRange(this, that)
@@ -41,21 +36,6 @@ data class VentLine(val startPoint: Point, val endPoint: Point) {
 
     fun getCoveredPoints(): MutableList<Point> {
         val points = mutableListOf<Point>()
-//        var currentPoint: Point
-//        val directionX = if (startPoint.x > endPoint.x) -1 else if (startPoint.x < endPoint.x) 1 else 0
-//        val directionY = if (startPoint.y > endPoint.y) -1 else if (startPoint.y < endPoint.y) 1 else 0
-//        var distanceX = abs(startPoint.x - endPoint.x)
-//        var distanceY = abs(startPoint.y - endPoint.y)
-//
-//        do {
-//            val newX = startPoint.x + (distanceX * directionX)
-//            val newY = startPoint.y + (distanceY * directionY)
-//            distanceX--
-//            distanceY--
-//            currentPoint = Point(newX, newY)
-//            points.add(currentPoint)
-//        } while (currentPoint != startPoint)
-
         for (point in startPoint..endPoint) {
             points.add(point)
         }
