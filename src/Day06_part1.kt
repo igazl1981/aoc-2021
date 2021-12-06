@@ -1,6 +1,8 @@
+const val lifecycleEndTimer = 0
+const val initialTimerAfterBirthGiven = 6
+const val initialTimerForNewBorn = 8
+
 private const val maxDays = 80
-private const val initialTimerAfterBirthGiven = 6
-private const val initialTimerForNewBorn = 8
 private val calculationPeriod = 0 until maxDays
 
 fun main() {
@@ -25,9 +27,9 @@ fun main() {
     println(part1Result)
     check(part1Result == 5934) { "Part1 failed: $part1Result" }
 
-    val inputPart1 = readInput("Day06")
-    check(inputPart1.size == 1) { "Input size is not valid" }
-    val part1FinalResult = part1(inputPart1[0])
+    val input = readInput("Day06")
+    check(input.size == 1) { "Input size is not valid" }
+    val part1FinalResult = part1(input[0])
     println("Part1: $part1FinalResult")
     check(part1FinalResult == 380243) { "Part1 Final failed: $part1FinalResult" }
 }
