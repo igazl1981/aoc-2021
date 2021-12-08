@@ -3,7 +3,6 @@ fun main() {
         val ventLines = input.map { line -> line.let { VentLine.create(line) } }
 
         return ventLines
-//            .filter { ventLine -> ventLine.isVertical() || ventLine.isHorizontal() }
             .flatMap { ventLine -> ventLine.getCoveredPoints() }
             .groupingBy { it }
             .eachCount()
