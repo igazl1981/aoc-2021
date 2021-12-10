@@ -42,10 +42,12 @@ enum class Bracket(val characters: List<Char>) {
 
     companion object {
         fun areTheyPair(openingBracket: Char, closingBracket: Char) = OPEN.characters.indexOf(openingBracket) == CLOSE.characters.indexOf(closingBracket)
+
+        fun getClosingBracketCharacter(openingBracket: Char) = CLOSE.characters[OPEN.characters.indexOf(openingBracket)]
     }
 }
 
-fun findIllegalClosingBracket(charactersInLine: List<Char>): Int? {
+private fun findIllegalClosingBracket(charactersInLine: List<Char>): Int? {
     var notFound = true
     var index = 0
     val stack = ArrayDeque<Int>()
