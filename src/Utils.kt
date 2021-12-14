@@ -23,6 +23,9 @@ fun String.md5(): String = BigInteger(1, MessageDigest.getInstance("MD5").digest
  */
 fun getSizeOfItems(items: List<String>?) = items?.size ?: 0
 
+fun String.isLargeCave() = this.all { it.isUpperCase() }
+
+fun String.isSmallCave() = this.all { it.isLowerCase() }
 
 fun findRating(input: List<String>, conditionToRetrieveZeros: (groupedByBit: Map<Char, List<String>>) -> Boolean): String {
     val binaryLength = input.first().length

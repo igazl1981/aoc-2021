@@ -1,7 +1,7 @@
 private const val width = 10
 private const val height = 10
 
-val allPaths = mutableListOf<List<String>>()
+private val allPaths = mutableListOf<List<String>>()
 
 fun main() {
 
@@ -31,12 +31,7 @@ fun main() {
     check(part1FinalResult == 1691) { "Part1  Final failed: $part1FinalResult" }
 }
 
-private fun String.isLargeCave() = this.all { it.isUpperCase() }
-
-private fun String.isSmallCave() = this.all { it.isLowerCase() }
-
-
-fun findPath(currentCave: String, actualPath: List<String>, connectionMap: Map<String, List<String>>) {
+private fun findPath(currentCave: String, actualPath: List<String>, connectionMap: Map<String, List<String>>) {
 
         if (currentCave.isSmallCave() && actualPath.contains(currentCave)) {
 
@@ -54,7 +49,7 @@ fun findPath(currentCave: String, actualPath: List<String>, connectionMap: Map<S
 
 }
 
-private fun createConnectionMap(input: List<String>): MutableMap<String, MutableList<String>> {
+fun createConnectionMap(input: List<String>): MutableMap<String, MutableList<String>> {
     val connectionMap = mutableMapOf<String, MutableList<String>>()
     input
         .forEach { line ->
